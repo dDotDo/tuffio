@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://csdygkxgnxe37"]
+
+[ext_resource type="Texture2D" uid="uid://cbeoqn85dmege" path="res://peach-circle-icon.webp" id="1_bg57j"]
+[ext_resource type="Script" path="res://test.gd" id="1_rc0rn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uvc5l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bg57j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o53am"]
+radius = 51.0882
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_rc0rn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_uvc5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o53am")
