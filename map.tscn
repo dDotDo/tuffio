@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://cc78jyvscb1dq"]
+
+[ext_resource type="Texture2D" uid="uid://d2coii5ya1hbo" path="res://tiles/images.jpeg" id="1_eo66b"]
+[ext_resource type="PackedScene" uid="uid://cvgwvu7uoyvqa" path="res://player.tscn" id="2_kie3h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2xxc"]
+size = Vector2(2632.12, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h53be"]
+size = Vector2(80, 1594.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vn3th"]
+size = Vector2(96, 1611.25)
+
+[node name="Map" type="Node"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -683.0
+offset_top = -453.0
+offset_right = 1839.0
+offset_bottom = 1140.0
+texture = ExtResource("1_eo66b")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("2_kie3h")]
+position = Vector2(593, 360)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(593, 360)
+zoom = Vector2(0.88, 0.88)
+limit_left = -670
+limit_top = -440
+limit_right = 1800
+limit_bottom = 1100
+editor_draw_limits = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(574, 1147)
+shape = SubResource("RectangleShape2D_x2xxc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(579, -487)
+shape = SubResource("RectangleShape2D_x2xxc")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-715, 338.375)
+shape = SubResource("RectangleShape2D_h53be")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1857, 336)
+shape = SubResource("RectangleShape2D_vn3th")
