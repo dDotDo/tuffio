@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbeoqn85dmege"
-path="res://.godot/imported/peach-circle-icon.webp-945e42f8c46bf69c2e942b2c64a5dbbb.ctex"
+uid="uid://ovfg72jm3hyv"
+path="res://.godot/imported/player.png-99d195b4b10a03b7e1088962b50c29f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://peach-circle-icon.webp"
-dest_files=["res://.godot/imported/peach-circle-icon.webp-945e42f8c46bf69c2e942b2c64a5dbbb.ctex"]
+source_file="res://art/player.png"
+dest_files=["res://.godot/imported/player.png-99d195b4b10a03b7e1088962b50c29f4.ctex"]
 
 [params]
 

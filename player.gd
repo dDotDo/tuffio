@@ -29,3 +29,7 @@ func player_movement(delta):
 		velocity = velocity.limit_length(max_speed)
 
 	move_and_slide()
+	
+func _process(delta):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		print("hi")
