@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cc78jyvscb1dq"]
+[gd_scene load_steps=7 format=3 uid="uid://cc78jyvscb1dq"]
 
 [ext_resource type="Texture2D" uid="uid://d2coii5ya1hbo" path="res://tiles/images.jpeg" id="1_eo66b"]
 [ext_resource type="PackedScene" uid="uid://cvgwvu7uoyvqa" path="res://player.tscn" id="2_kie3h"]
+[ext_resource type="PackedScene" uid="uid://cclqlrc4hddrd" path="res://rock.tscn" id="3_rq25j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2xxc"]
 size = Vector2(2632.12, 66)
@@ -37,20 +38,26 @@ limit_right = 1800
 limit_bottom = 1100
 editor_draw_limits = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="MapBorder" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MapBorder"]
 position = Vector2(574, 1147)
 shape = SubResource("RectangleShape2D_x2xxc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapBorder"]
 position = Vector2(579, -487)
 shape = SubResource("RectangleShape2D_x2xxc")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="MapBorder"]
 position = Vector2(-715, 338.375)
 shape = SubResource("RectangleShape2D_h53be")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="MapBorder"]
 position = Vector2(1857, 336)
 shape = SubResource("RectangleShape2D_vn3th")
+
+[node name="rock" parent="." instance=ExtResource("3_rq25j")]
+position = Vector2(306, 298)
+
+[node name="rock2" parent="." instance=ExtResource("3_rq25j")]
+position = Vector2(852, 278)
