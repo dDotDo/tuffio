@@ -58,15 +58,19 @@ func _input(event):
 		var random_choice = randf()
 
 		if random_choice < 0.5:
-			$AnimatedSprite2D.animation = "punch_left"
+			$AnimationPlayer.play("left_punch")
+			#$Sprite2D.animation = "punch_left"
 		else:
-			$AnimatedSprite2D.animation = "punch_right"
+			$AnimationPlayer.play("right_punch")
+			#$AnimationPlayer.animation = "punch_right"
 
-		$AnimatedSprite2D.play()
+		#$Sprite2D.play()
 		can_attack = false
 	else:
-		$AnimatedSprite2D.animation= "default"
-		$AnimatedSprite2D.stop()
+		pass
+		#$Sprite2D.animation= "default"
+		#$Sprite2D.stop()
+		
 
 func _on_punch_timer_timeout():
 	$PunchTimer.stop()

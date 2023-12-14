@@ -38,6 +38,7 @@ radius = 39.0128
 
 [sub_resource type="Animation" id="Animation_fddfp"]
 resource_name = "left_punch"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -45,10 +46,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [0, 1]
+"values": [0, 1, 0]
 }
 
 [sub_resource type="Animation" id="Animation_4ahi7"]
@@ -68,6 +69,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_n6qj2"]
 resource_name = "right_punch"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -75,10 +77,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [2, 3]
+"values": [2, 3, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nwjn4"]
@@ -106,6 +108,7 @@ shape = SubResource("CircleShape2D_xijjo")
 wait_time = 0.25
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_q6rye")
 hframes = 4
 
