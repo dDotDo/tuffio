@@ -29,7 +29,30 @@ func player_movement(delta):
 		velocity = velocity.limit_length(max_speed)
 
 	move_and_slide()
-	
+
+var can_attack = true
+
 func _process(delta):
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and can_attack:
+		$PunchTimer.start()
+		# Generate a random number between 0 and 1
+		var random_choice = randf()
 		print("hi")
+		 #Set the animation based on the random number
+		if random_choice < 0.5:
+			$AnimatedSprite2D.animation = "punch_left"
+		else:
+			$AnimatedSprite2D.animation = "punch_right"
+		#$AnimatedSprite2D.animation = "punch_left"
+		$AnimatedSprite2D.play()
+		can_attack = false
+	else:
+		$AnimatedSprite2D.animation= "default"
+		$AnimatedSprite2D.stop()
+
+
+
+func _on_punch_timer_timeout():
+	$PunchTimer.stop()
+	print("uh")
+	can_attack = true
