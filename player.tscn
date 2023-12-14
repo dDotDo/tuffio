@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvgwvu7uoyvqa"]
+[gd_scene load_steps=12 format=3 uid="uid://cvgwvu7uoyvqa"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1cjcd"]
 [ext_resource type="Texture2D" uid="uid://clytc51inkwng" path="res://art/baseplayer.png" id="2_0a6wj"]
 [ext_resource type="Texture2D" uid="uid://djiasjhs3kjby" path="res://art/player_punch1.png" id="3_b3b5a"]
 [ext_resource type="Texture2D" uid="uid://b5owv0sourr62" path="res://art/player_punch2.png" id="4_0j0xh"]
+[ext_resource type="Texture2D" uid="uid://dea0m4ktyf6aa" path="res://art/framebaseplayer-Sheet.png" id="5_q6rye"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4ry3y"]
 animations = [{
@@ -35,14 +36,66 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_xijjo"]
 radius = 39.0128
 
+[sub_resource type="Animation" id="Animation_fddfp"]
+resource_name = "left_punch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_4ahi7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_n6qj2"]
+resource_name = "right_punch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nwjn4"]
+_data = {
+"RESET": SubResource("Animation_4ahi7"),
+"left_punch": SubResource("Animation_fddfp"),
+"right_punch": SubResource("Animation_n6qj2")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_1cjcd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_4ry3y")
 animation = &"punch_left"
-speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -51,5 +104,14 @@ shape = SubResource("CircleShape2D_xijjo")
 
 [node name="PunchTimer" type="Timer" parent="."]
 wait_time = 0.25
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("5_q6rye")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nwjn4")
+}
 
 [connection signal="timeout" from="PunchTimer" to="." method="_on_punch_timer_timeout"]
