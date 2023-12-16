@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var hurtbox_area = $'Sprite2D/PunchArea'
+
 const max_speed = 800
 const accel = 19000
 const friction = 19000
@@ -61,9 +63,18 @@ func _on_punch_timer_timeout():
 	$PunchTimer.stop()
 	can_attack = true
 
+var attack = 1
+func deal_damage():
+	var intersecting_bodies: Array = hurtbox_area.get_overlapping_bodies()
+	for body in intersecting_bodies:
+		if should_deal_damage(body):
+			body.take_damage(attack)
 
-func _on_punch_area_area_entered(area):
-	if area.is_in_group("hurtbox"):
-		print("hit!")
-		area.take_damage()
-
+var should_take_damage_groups = ['destroyable-object']
+func should_deal_damage(body: Node2D) -> bool:
+	for group in should_take_damage_groups:
+		if not body.is_in_group(group):
+			return false
+	if not body.has_method('take_damage'):
+		return false
+	return true

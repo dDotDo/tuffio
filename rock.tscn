@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cclqlrc4hddrd"]
+[gd_scene load_steps=4 format=3 uid="uid://cclqlrc4hddrd"]
 
 [ext_resource type="Texture2D" uid="uid://cox55pmqhutv6" path="res://art/Circle_Grey_Solid.svg.png" id="1_dri0w"]
+[ext_resource type="Script" path="res://rock.gd" id="1_n2v2x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_topqd"]
 radius = 56.0089
 
-[node name="rock" type="CharacterBody2D"]
+[node name="rock" type="CharacterBody2D" groups=["destroyable-object"]]
+script = ExtResource("1_n2v2x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.00006, -0.999969)
