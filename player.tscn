@@ -1,40 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvgwvu7uoyvqa"]
+[gd_scene load_steps=9 format=3 uid="uid://cvgwvu7uoyvqa"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1cjcd"]
-[ext_resource type="Texture2D" uid="uid://clytc51inkwng" path="res://art/baseplayer.png" id="2_0a6wj"]
-[ext_resource type="Texture2D" uid="uid://djiasjhs3kjby" path="res://art/player_punch1.png" id="3_b3b5a"]
-[ext_resource type="Texture2D" uid="uid://b5owv0sourr62" path="res://art/player_punch2.png" id="4_0j0xh"]
 [ext_resource type="Texture2D" uid="uid://dea0m4ktyf6aa" path="res://art/framebaseplayer-Sheet.png" id="5_q6rye"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_4ry3y"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_0a6wj")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_b3b5a")
-}],
-"loop": false,
-"name": &"punch_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_0j0xh")
-}],
-"loop": false,
-"name": &"punch_right",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xijjo"]
-radius = 39.0128
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aobjm"]
+size = Vector2(88, 58)
 
 [sub_resource type="Animation" id="Animation_fddfp"]
 resource_name = "left_punch"
@@ -51,6 +21,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/PunchArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_4ahi7"]
 length = 0.001
@@ -65,6 +47,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/PunchArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_n6qj2"]
@@ -82,6 +76,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [2, 3, 0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/PunchArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nwjn4"]
 _data = {
@@ -90,19 +96,11 @@ _data = {
 "right_punch": SubResource("Animation_n6qj2")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xijjo"]
+radius = 50.0899
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_1cjcd")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_4ry3y")
-animation = &"punch_left"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-1, 6)
-shape = SubResource("CircleShape2D_xijjo")
 
 [node name="PunchTimer" type="Timer" parent="."]
 wait_time = 0.25
@@ -112,9 +110,20 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_q6rye")
 hframes = 4
 
+[node name="PunchArea" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/PunchArea"]
+position = Vector2(0, -208)
+shape = SubResource("RectangleShape2D_aobjm")
+disabled = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_nwjn4")
 }
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xijjo")
+
 [connection signal="timeout" from="PunchTimer" to="." method="_on_punch_timer_timeout"]
+[connection signal="area_entered" from="Sprite2D/PunchArea" to="." method="_on_punch_area_area_entered"]

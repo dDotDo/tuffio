@@ -34,21 +34,6 @@ var can_attack = true
 
 func _process(delta):
 	pass
-	#if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and can_attack:
-		#$PunchTimer.start()
-#
-		#var random_choice = randf()
-#
-		#if random_choice < 0.5:
-			#$AnimatedSprite2D.animation = "punch_left"
-		#else:
-			#$AnimatedSprite2D.animation = "punch_right"
-#
-		#$AnimatedSprite2D.play()
-		#can_attack = false
-	#else:
-		#$AnimatedSprite2D.animation= "default"
-		#$AnimatedSprite2D.stop()
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed and can_attack:
@@ -75,3 +60,10 @@ func _input(event):
 func _on_punch_timer_timeout():
 	$PunchTimer.stop()
 	can_attack = true
+
+
+func _on_punch_area_area_entered(area):
+	if area.is_in_group("hurtbox"):
+		print("hit!")
+		area.take_damage()
+
