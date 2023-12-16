@@ -35,7 +35,7 @@ func player_movement(delta):
 var can_attack = true
 
 func _process(delta):
-	pass
+	look_at(get_global_mouse_position())
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed and can_attack:
@@ -46,18 +46,12 @@ func _input(event):
 
 		if random_choice < 0.5:
 			$AnimationPlayer.play("left_punch")
-			#$Sprite2D.animation = "punch_left"
 		else:
 			$AnimationPlayer.play("right_punch")
-			#$AnimationPlayer.animation = "punch_right"
 
-		#$Sprite2D.play()
 		can_attack = false
 	else:
 		pass
-		#$Sprite2D.animation= "default"
-		#$Sprite2D.stop()
-		
 
 func _on_punch_timer_timeout():
 	$PunchTimer.stop()
