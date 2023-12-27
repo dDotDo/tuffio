@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvgwvu7uoyvqa"]
+[gd_scene load_steps=11 format=3 uid="uid://cvgwvu7uoyvqa"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1cjcd"]
+[ext_resource type="PackedScene" uid="uid://ci5wm2me5ta0f" path="res://bullet.tscn" id="2_kj80x"]
 [ext_resource type="Texture2D" uid="uid://ct3v5uanqcjs6" path="res://art/player_gun.png" id="3_om7ew"]
 [ext_resource type="Texture2D" uid="uid://dea0m4ktyf6aa" path="res://art/framebaseplayer-Sheet.png" id="5_q6rye"]
 
@@ -94,6 +95,7 @@ radius = 50.0899
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_1cjcd")
+bullet = ExtResource("2_kj80x")
 
 [node name="PunchTimer" type="Timer" parent="."]
 wait_time = 0.25
@@ -124,5 +126,9 @@ rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_om7ew")
 
+[node name="AK47Timer" type="Timer" parent="."]
+wait_time = 0.25
+
 [connection signal="timeout" from="PunchTimer" to="." method="_on_punch_timer_timeout"]
 [connection signal="area_entered" from="Sprite2D/PunchArea" to="." method="_on_punch_area_area_entered"]
+[connection signal="timeout" from="AK47Timer" to="." method="_on_ak_47_timer_timeout"]

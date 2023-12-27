@@ -8,14 +8,17 @@ const friction = 19000
 
 var input = Vector2.ZERO
 
+@export var bullet: PackedScene
+
 var equipment_data = {
 	"helmet": null, 
 	"chest": null,
-	"combat": null,
+	"combat": "fist",
 }
 
 func _ready():
 	$AK47_Sprite.hide()
+	print(equipment_data)
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -41,6 +44,8 @@ func player_movement(delta):
 	move_and_slide()
 
 var can_attack = true
+var can_AK_shoot = true
+
 
 func _process(delta):
 	look_at(get_global_mouse_position())
@@ -59,22 +64,38 @@ func _input(event):
 	else:
 		pass
 	
-	if (Input.is_action_pressed("loot")):
-		print("looting")
+	if (Input.is_action_pressed("loot")): #temp, soon wil add && for when object is inbound
 		$Sprite2D.hide()
 		$AK47_Sprite.show()
+		equipment_data["combat"] = "gun"
+		print(equipment_data)
 		
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and equipment_data["combat"] == "gun" and can_AK_shoot:
+		print("shooting")
+		shoot()
+		#$AK47Timer.start()
+		#can_AK_shoot = false
+		
+func shoot():
+	var shot = bullet.instantiate()
+	get_parent().add_child(shot)
+	shot.shoot(global_position, get_global_mouse_position())
 
 func _on_punch_timer_timeout():
 	$PunchTimer.stop()
 	can_attack = true
-
+	
+func _on_ak_47_timer_timeout():
+	$AK47Timer.stop()
+	can_AK_shoot = true
+	
 var attack = 1
 func deal_damage():
 	var intersecting_bodies: Array = hurtbox_area.get_overlapping_bodies()
-	for body in intersecting_bodies:
-		if should_deal_damage(body):
-			body.take_damage(attack)
+	if equipment_data["combat"] == "fist":
+		for body in intersecting_bodies:
+			if should_deal_damage(body):
+				body.take_damage(attack)
 
 
 var should_take_damage_groups = ['destroyable-object']
