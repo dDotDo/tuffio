@@ -8,17 +8,25 @@ const friction = 19000
 
 var input = Vector2.ZERO
 
+var equipment_data = {
+	"helmet": null, 
+	"chest": null,
+	"combat": null,
+}
+
+func _ready():
+	$AK47_Sprite.hide()
+
 func _physics_process(delta):
 	player_movement(delta)
 
 func get_input():
-	input.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
-	input.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+	input.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
+	input.y = int(Input.is_action_pressed("move_down")) - int(Input.is_action_pressed("move_up"))
 	return input.normalized()
 	
 func player_movement(delta):
 	input = get_input()
-	
 	# Check if there is no input
 	if input == Vector2.ZERO:
 		# Apply friction to gradually slow down the player
@@ -39,9 +47,7 @@ func _process(delta):
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed and can_attack:
-
 		$PunchTimer.start()
-
 		var random_choice = randf()
 
 		if random_choice < 0.5:
@@ -52,6 +58,12 @@ func _input(event):
 		can_attack = false
 	else:
 		pass
+	
+	if (Input.is_action_pressed("loot")):
+		print("looting")
+		$Sprite2D.hide()
+		$AK47_Sprite.show()
+		
 
 func _on_punch_timer_timeout():
 	$PunchTimer.stop()
@@ -64,6 +76,7 @@ func deal_damage():
 		if should_deal_damage(body):
 			body.take_damage(attack)
 
+
 var should_take_damage_groups = ['destroyable-object']
 func should_deal_damage(body: Node2D) -> bool:
 	for group in should_take_damage_groups:
@@ -72,3 +85,5 @@ func should_deal_damage(body: Node2D) -> bool:
 	if not body.has_method('take_damage'):
 		return false
 	return true
+	
+

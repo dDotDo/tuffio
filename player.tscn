@@ -1,10 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvgwvu7uoyvqa"]
+[gd_scene load_steps=10 format=3 uid="uid://cvgwvu7uoyvqa"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1cjcd"]
+[ext_resource type="Texture2D" uid="uid://ct3v5uanqcjs6" path="res://art/player_gun.png" id="3_om7ew"]
 [ext_resource type="Texture2D" uid="uid://dea0m4ktyf6aa" path="res://art/framebaseplayer-Sheet.png" id="5_q6rye"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aobjm"]
-size = Vector2(88, 58)
+size = Vector2(180, 58)
+
+[sub_resource type="Animation" id="Animation_4ahi7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_fddfp"]
 resource_name = "left_punch"
@@ -34,21 +50,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"deal_damage"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_4ahi7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_n6qj2"]
@@ -106,7 +107,7 @@ hframes = 4
 [node name="PunchArea" type="Area2D" parent="Sprite2D"]
 
 [node name="Hurtbox" type="CollisionShape2D" parent="Sprite2D/PunchArea"]
-position = Vector2(0, -208)
+position = Vector2(-9.53674e-06, -208)
 shape = SubResource("RectangleShape2D_aobjm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -116,6 +117,12 @@ libraries = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xijjo")
+
+[node name="AK47_Sprite" type="Sprite2D" parent="."]
+position = Vector2(55, 1)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_om7ew")
 
 [connection signal="timeout" from="PunchTimer" to="." method="_on_punch_timer_timeout"]
 [connection signal="area_entered" from="Sprite2D/PunchArea" to="." method="_on_punch_area_area_entered"]

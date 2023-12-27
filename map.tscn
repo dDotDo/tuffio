@@ -24,14 +24,13 @@ texture = ExtResource("1_eo66b")
 stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_kie3h")]
-position = Vector2(593, 360)
+position = Vector2(592, 359)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(593, 360)
-rotation = 1.5708
+position = Vector2(592, 359)
 zoom = Vector2(0.88, 0.88)
 limit_left = -670
 limit_top = -440
