@@ -46,8 +46,14 @@ func player_movement(delta):
 
 var can_attack = true
 
+# Input.is_action_just_pressed("click") FOR SINGLE CLICK AKA PISTOL
+# Input.is_mouse_button_pressed(1) FOR HOLD DOWN CLICK AKA AK47
+
 func _process(delta):
 	look_at(get_global_mouse_position())
+	if Input.is_mouse_button_pressed(1) and equipment_data["combat"] == "gun" and akCooldownTimer.is_stopped():
+		print("shooting")
+		shoot()
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed and can_attack:
@@ -69,9 +75,7 @@ func _input(event):
 		equipment_data["combat"] = "gun"
 		print(equipment_data)
 		
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and equipment_data["combat"] == "gun" and akCooldownTimer.is_stopped():
-		print("shooting")
-		shoot()
+
 		#$AK47Timer.start()
 		
 func shoot():
