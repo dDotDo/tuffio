@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var hurtbox_area = $'Sprite2D/PunchArea'
+@onready var akCooldownTimer := $'AK47Timer'
 
 const max_speed = 800
 const accel = 19000
@@ -44,8 +45,6 @@ func player_movement(delta):
 	move_and_slide()
 
 var can_attack = true
-var can_AK_shoot = true
-
 
 func _process(delta):
 	look_at(get_global_mouse_position())
@@ -70,25 +69,21 @@ func _input(event):
 		equipment_data["combat"] = "gun"
 		print(equipment_data)
 		
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and equipment_data["combat"] == "gun" and can_AK_shoot:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and equipment_data["combat"] == "gun" and akCooldownTimer.is_stopped():
 		print("shooting")
 		shoot()
 		#$AK47Timer.start()
-		#can_AK_shoot = false
 		
 func shoot():
 	var shot = bullet.instantiate()
 	get_parent().add_child(shot)
 	shot.shoot(global_position, get_global_mouse_position())
+	akCooldownTimer.start()
 
 func _on_punch_timer_timeout():
 	$PunchTimer.stop()
 	can_attack = true
-	
-func _on_ak_47_timer_timeout():
-	$AK47Timer.stop()
-	can_AK_shoot = true
-	
+
 var attack = 1
 func deal_damage():
 	var intersecting_bodies: Array = hurtbox_area.get_overlapping_bodies()

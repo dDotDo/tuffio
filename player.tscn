@@ -127,7 +127,8 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_om7ew")
 
 [node name="AK47Timer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.15
+one_shot = true
 
 [connection signal="timeout" from="PunchTimer" to="." method="_on_punch_timer_timeout"]
 [connection signal="area_entered" from="Sprite2D/PunchArea" to="." method="_on_punch_area_area_entered"]
