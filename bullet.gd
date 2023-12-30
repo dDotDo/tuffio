@@ -12,7 +12,7 @@ func shoot(from: Vector2, to: Vector2):
 	$Sprite2D.position.x = 100
 
 func _physics_process(delta):
-	position += direction * speed * delta * .4
+	position += direction * speed * delta * 2
 
 var attack = 1
 
@@ -29,7 +29,6 @@ func should_deal_damage(body: Node2D) -> bool:
 func _on_bullet_area_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	var intersecting_bodies: Array = hurtbox_area.get_overlapping_bodies()
 	for object in intersecting_bodies:
-		print("bullet in")
 		if should_deal_damage(object):
 			object.take_damage(attack)
 			queue_free()

@@ -117,14 +117,14 @@ libraries = {
 "": SubResource("AnimationLibrary_nwjn4")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_xijjo")
-
 [node name="AK47_Sprite" type="Sprite2D" parent="."]
 position = Vector2(55, 1)
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_om7ew")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xijjo")
 
 [node name="AK47Timer" type="Timer" parent="."]
 wait_time = 0.12

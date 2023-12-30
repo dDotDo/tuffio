@@ -68,15 +68,21 @@ func _input(event):
 	else:
 		pass
 	
+	
+	####### THIS IS TEMP - NEED A CLEAN WAY TO equip / hide gun (ak, m9, etc)
 	if (Input.is_action_pressed("loot")): #temp, soon wil add && for when object is inbound
 		$Sprite2D.hide()
 		$AK47_Sprite.show()
 		equipment_data["combat"] = "gun"
 		print(equipment_data)
 		
+	if(Input.is_action_pressed("fist")): #temp, soon wil add && for when object is inbound
+		$Sprite2D.show()
+		$AK47_Sprite.hide()
+		equipment_data["combat"] = "fist"
+		print(equipment_data)
 
-		#$AK47Timer.start()
-		
+
 func shoot():
 	var shot = bullet.instantiate()
 	get_parent().add_child(shot)
