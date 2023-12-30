@@ -52,7 +52,6 @@ var can_attack = true
 func _process(delta):
 	look_at(get_global_mouse_position())
 	if Input.is_mouse_button_pressed(1) and equipment_data["combat"] == "gun" and akCooldownTimer.is_stopped():
-		print("shooting")
 		shoot()
 
 func _input(event):
