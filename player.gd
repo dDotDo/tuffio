@@ -18,7 +18,6 @@ var equipment_data = {
 }
 
 func _ready():
-	$GunAndWep.hide()
 	print(equipment_data)
 
 func _physics_process(delta):
@@ -70,15 +69,28 @@ func _input(event):
 	
 	
 	####### THIS IS TEMP - NEED A CLEAN WAY TO equip / hide gun (ak, m9, etc)
+	#### FOR FUTURE - LOOP THRU THE CURRENT USER'S ITEMS INSTAED OF ALL ITEMS
 	if (Input.is_action_pressed("loot")): #temp, soon wil add && for when object is inbound
 		$Sprite2D.hide()
-		$AK47_Sprite.show()
+		for child in $GunAndWep.get_children():
+			child.hide()
+		$GunAndWep/AK47_Sprite.show()
+		equipment_data["combat"] = "gun"
+		print(equipment_data)
+		
+	if (Input.is_action_pressed("loot") and Input.is_action_just_pressed("move_down")): #temp, soon wil add && for when object is inbound
+		print("pistol")
+		$Sprite2D.hide()
+		for child in $GunAndWep.get_children():
+			child.hide()
+		$GunAndWep/m9_Sprite.show()
 		equipment_data["combat"] = "gun"
 		print(equipment_data)
 		
 	if(Input.is_action_pressed("fist")): #temp, soon wil add && for when object is inbound
 		$Sprite2D.show()
-		$AK47_Sprite.hide()
+		for child in $GunAndWep.get_children():
+			child.hide()
 		equipment_data["combat"] = "fist"
 		print(equipment_data)
 
