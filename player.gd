@@ -50,7 +50,9 @@ var can_attack = true
 
 func _process(delta):
 	look_at(get_global_mouse_position())
-	if Input.is_mouse_button_pressed(1) and equipment_data["combat"] == "gun" and akCooldownTimer.is_stopped():
+	if Input.is_mouse_button_pressed(1) and equipment_data["combat"] == "autoGun" and akCooldownTimer.is_stopped():
+		shoot()
+	if Input.is_action_just_pressed("click") and equipment_data["combat"] == "manualGun" and akCooldownTimer.is_stopped():
 		shoot()
 
 func _input(event):
@@ -75,7 +77,7 @@ func _input(event):
 		for child in $GunAndWep.get_children():
 			child.hide()
 		$GunAndWep/AK47_Sprite.show()
-		equipment_data["combat"] = "gun"
+		equipment_data["combat"] = "autoGun"
 		print(equipment_data)
 		
 	if (Input.is_action_pressed("loot") and Input.is_action_just_pressed("move_down")): #temp, soon wil add && for when object is inbound
@@ -84,7 +86,7 @@ func _input(event):
 		for child in $GunAndWep.get_children():
 			child.hide()
 		$GunAndWep/m9_Sprite.show()
-		equipment_data["combat"] = "gun"
+		equipment_data["combat"] = "manualGun"
 		print(equipment_data)
 		
 	if(Input.is_action_pressed("fist")): #temp, soon wil add && for when object is inbound
