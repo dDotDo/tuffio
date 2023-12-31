@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvgwvu7uoyvqa"]
+[gd_scene load_steps=12 format=3 uid="uid://cvgwvu7uoyvqa"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1cjcd"]
 [ext_resource type="PackedScene" uid="uid://ci5wm2me5ta0f" path="res://bullet.tscn" id="2_kj80x"]
 [ext_resource type="Texture2D" uid="uid://ct3v5uanqcjs6" path="res://art/player_gun.png" id="3_om7ew"]
+[ext_resource type="Texture2D" uid="uid://d4kd7a86aqaf2" path="res://art/pistol.png" id="5_ebkfr"]
 [ext_resource type="Texture2D" uid="uid://dea0m4ktyf6aa" path="res://art/framebaseplayer-Sheet.png" id="5_q6rye"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aobjm"]
@@ -112,16 +113,24 @@ hframes = 4
 position = Vector2(-9.53674e-06, -208)
 shape = SubResource("RectangleShape2D_aobjm")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_nwjn4")
-}
+[node name="GunAndWep" type="Node2D" parent="."]
 
-[node name="AK47_Sprite" type="Sprite2D" parent="."]
+[node name="AK47_Sprite" type="Sprite2D" parent="GunAndWep"]
 position = Vector2(55, 1)
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_om7ew")
+
+[node name="m9_Sprite" type="Sprite2D" parent="GunAndWep"]
+position = Vector2(36, 1)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ebkfr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nwjn4")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xijjo")

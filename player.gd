@@ -18,7 +18,7 @@ var equipment_data = {
 }
 
 func _ready():
-	$AK47_Sprite.hide()
+	$GunAndWep.hide()
 	print(equipment_data)
 
 func _physics_process(delta):
