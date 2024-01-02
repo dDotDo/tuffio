@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var hurtbox_area = $'Sprite2D/PunchArea'
 @onready var akCooldownTimer := $'AK47Timer'
-@onready var characterHitbox_area = $'Sprite2D/PlayerArea'
+@onready var characterHitbox_area = $'PlayerArea'
 
 const max_speed = 800
 const accel = 19000

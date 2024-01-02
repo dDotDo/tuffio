@@ -13,3 +13,4 @@ func _process(delta):
 
 func loot_ak():
 	print("stuff")
+	queue_free()

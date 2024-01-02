@@ -63,6 +63,10 @@ fist={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_3="env_objects"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

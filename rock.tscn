@@ -7,6 +7,7 @@
 radius = 56.0089
 
 [node name="rock" type="CharacterBody2D" groups=["destroyable-object"]]
+collision_layer = 5
 script = ExtResource("1_n2v2x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
