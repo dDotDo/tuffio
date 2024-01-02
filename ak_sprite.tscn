@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_cmsr4"]
 radius = 146.014
 
-[node name="AKSprite" type="Area2D"]
+[node name="AKSprite" type="CharacterBody2D" groups=["pickable_loot"]]
 script = ExtResource("1_bg25m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,5 +17,3 @@ texture = ExtResource("1_yjpy0")
 position = Vector2(3, -1)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_cmsr4")
-
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

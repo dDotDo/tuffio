@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3t7kkjdlammb"]
+
+[ext_resource type="Script" path="res://loot.gd" id="2_dfept"]
+
+[node name="Looting" type="Sprite2D"]
+position = Vector2(34, 24)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("2_dfept")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -90.0
+offset_top = -33.3333
+offset_right = 91.0
+offset_bottom = 35.6667
+theme_override_font_sizes/font_size = 50
+text = "Loot (F)"

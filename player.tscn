@@ -9,6 +9,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aobjm"]
 size = Vector2(180, 58)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xijjo"]
+radius = 50.0899
+
 [sub_resource type="Animation" id="Animation_4ahi7"]
 length = 0.001
 tracks/0/type = "value"
@@ -91,9 +94,6 @@ _data = {
 "right_punch": SubResource("Animation_n6qj2")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xijjo"]
-radius = 50.0899
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_1cjcd")
 bullet = ExtResource("2_kj80x")
@@ -112,6 +112,13 @@ hframes = 4
 [node name="Hurtbox" type="CollisionShape2D" parent="Sprite2D/PunchArea"]
 position = Vector2(-9.53674e-06, -208)
 shape = SubResource("RectangleShape2D_aobjm")
+
+[node name="PlayerArea" type="Area2D" parent="Sprite2D"]
+
+[node name="PlayerHitBox" type="CollisionShape2D" parent="Sprite2D/PlayerArea"]
+rotation = -1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_xijjo")
 
 [node name="GunAndWep" type="Node2D" parent="."]
 
@@ -133,9 +140,6 @@ texture = ExtResource("5_ebkfr")
 libraries = {
 "": SubResource("AnimationLibrary_nwjn4")
 }
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_xijjo")
 
 [node name="AK47Timer" type="Timer" parent="."]
 wait_time = 0.12

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc78jyvscb1dq"]
+[gd_scene load_steps=9 format=3 uid="uid://cc78jyvscb1dq"]
 
 [ext_resource type="Texture2D" uid="uid://d2coii5ya1hbo" path="res://tiles/images.jpeg" id="1_eo66b"]
 [ext_resource type="PackedScene" uid="uid://cvgwvu7uoyvqa" path="res://player.tscn" id="2_kie3h"]
 [ext_resource type="PackedScene" uid="uid://cclqlrc4hddrd" path="res://rock.tscn" id="3_rq25j"]
 [ext_resource type="PackedScene" uid="uid://r4u05madp0v4" path="res://ak_sprite.tscn" id="4_rsmn0"]
+[ext_resource type="PackedScene" uid="uid://d3t7kkjdlammb" path="res://loot.tscn" id="5_butr6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2xxc"]
 size = Vector2(2632.12, 66)
@@ -65,3 +66,6 @@ position = Vector2(852, 278)
 
 [node name="AKSprite" parent="." instance=ExtResource("4_rsmn0")]
 position = Vector2(382, 517)
+
+[node name="Looting" parent="." instance=ExtResource("5_butr6")]
+position = Vector2(588, 358)
