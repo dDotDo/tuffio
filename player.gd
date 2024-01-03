@@ -90,14 +90,14 @@ func _input(event):
 						child.hide()
 					$GunAndWep/AK47_Sprite.show()
 					equipment_data["combat"] = "autoGun"
-		
-	if (Input.is_action_pressed("loot") and Input.is_action_just_pressed("move_down")): #temp, soon wil add && for when object is inbound
-		print("pistol")
-		$Sprite2D.hide()
-		for child in $GunAndWep.get_children():
-			child.hide()
-		$GunAndWep/m9_Sprite.show()
-		equipment_data["combat"] = "manualGun"
+				if "m9Sprite" in str(body):
+					print("this is m9 pistol")
+					body.loot_m9()
+					$Sprite2D.hide()
+					for child in $GunAndWep.get_children():
+						child.hide()
+					$GunAndWep/m9_Sprite.show()
+					equipment_data["combat"] = "manualGun"
 		print(equipment_data)
 		
 	if(Input.is_action_pressed("fist")):
