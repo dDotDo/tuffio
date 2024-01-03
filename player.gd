@@ -28,7 +28,7 @@ func get_input():
 	input.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
 	input.y = int(Input.is_action_pressed("move_down")) - int(Input.is_action_pressed("move_up"))
 	return input.normalized()
-	
+
 func player_movement(delta):
 	input = get_input()
 	# Check if there is no input
@@ -56,6 +56,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("click") and equipment_data["combat"] == "manualGun" and akCooldownTimer.is_stopped():
 		shoot()
 
+@onready var akSpriteInstance = $'GunAndWep/AK47_Sprite'
+
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed and can_attack:
 		$PunchTimer.start()
@@ -78,16 +80,16 @@ func _input(event):
 		# check for overlapping bodies
 		# if overlapping bodies belongs to group then pick it up
 		var intersecting_bodies: Array = characterHitbox_area.get_overlapping_bodies()
-		print(intersecting_bodies)
 		for body in intersecting_bodies:
 			if should_be_lootable(body):
-				body.loot_ak()
-		
-		$Sprite2D.hide()
-		for child in $GunAndWep.get_children():
-			child.hide()
-		$GunAndWep/AK47_Sprite.show()
-		equipment_data["combat"] = "autoGun"
+				if "AKSprite" in str(body):
+					print("This is an AKSprite")
+					body.loot_ak()
+					$Sprite2D.hide()
+					for child in $GunAndWep.get_children():
+						child.hide()
+					$GunAndWep/AK47_Sprite.show()
+					equipment_data["combat"] = "autoGun"
 		
 	if (Input.is_action_pressed("loot") and Input.is_action_just_pressed("move_down")): #temp, soon wil add && for when object is inbound
 		print("pistol")
