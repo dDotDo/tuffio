@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var hurtbox_area = $'Sprite2D/PunchArea'
 @onready var akCooldownTimer := $'AK47Timer'
 @onready var characterHitbox_area = $'PlayerArea'
+@onready var akSpriteInstance = $'GunAndWep/AK47_Sprite'
 
 const max_speed = 800
 const accel = 19000
@@ -60,7 +61,6 @@ func _process(delta):
 	if Input.is_action_just_pressed("click") and equipment_data["display"] == "gun" and equipment_data["inventory"]["gun"][1] == "manualGun" and akCooldownTimer.is_stopped():
 		shoot()
 
-@onready var akSpriteInstance = $'GunAndWep/AK47_Sprite'
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed and can_attack:
@@ -97,9 +97,10 @@ func _input(event):
 	if (Input.is_action_pressed("2")): #show gun in inventory
 		print("tryna find gun")
 		if equipment_data["inventory"]["gun"][0] != null:
-			equip_wep(equipment_data["inventory"]["gun"][0], "autoGun", "ak")
+			print("theres a gun")
+			equip_wep(equipment_data["inventory"]["gun"][0], equipment_data["inventory"]["gun"][1])
 
-func equip_wep(weapon_sprite: String, gunAutoOrMan: String, inventory_name: String):
+func equip_wep(weapon_sprite: String, gunAutoOrMan: String):
 	$Sprite2D.hide()
 	for child in $GunAndWep.get_children():
 		child.hide()
