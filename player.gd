@@ -15,7 +15,11 @@ var input = Vector2.ZERO
 var equipment_data = {
 	"helmet": null,
 	"chest": null,
-	"combat": "fist",
+	"display": "fist",
+	"inventory": {
+		"combat": "fist",
+		"gun": [null, null],
+	}
 }
 
 func _ready():
@@ -51,9 +55,9 @@ var can_attack = true
 
 func _process(delta):
 	look_at(get_global_mouse_position())
-	if Input.is_mouse_button_pressed(1) and equipment_data["combat"] == "autoGun" and akCooldownTimer.is_stopped():
+	if Input.is_mouse_button_pressed(1) and equipment_data["display"] == "gun" and equipment_data["inventory"]["gun"][1] == "autoGun" and akCooldownTimer.is_stopped():
 		shoot()
-	if Input.is_action_just_pressed("click") and equipment_data["combat"] == "manualGun" and akCooldownTimer.is_stopped():
+	if Input.is_action_just_pressed("click") and equipment_data["display"] == "gun" and equipment_data["inventory"]["gun"][1] == "manualGun" and akCooldownTimer.is_stopped():
 		shoot()
 
 @onready var akSpriteInstance = $'GunAndWep/AK47_Sprite'
@@ -67,53 +71,67 @@ func _input(event):
 			$AnimationPlayer.play("left_punch")
 		else:
 			$AnimationPlayer.play("right_punch")
-
+			
 		can_attack = false
 	else:
 		pass
 	
-	
-	####### THIS IS TEMP - NEED A CLEAN WAY TO equip / hide gun (ak, m9, etc)
-	#### FOR FUTURE - LOOP THRU THE CURRENT USER'S ITEMS INSTAED OF ALL ITEMS
-	
 	if (Input.is_action_pressed("loot")): #temp, soon wil add && for when object is inbound
-		# check for overlapping bodies
-		# if overlapping bodies belongs to group then pick it up
 		var intersecting_bodies: Array = characterHitbox_area.get_overlapping_bodies()
 		for body in intersecting_bodies:
 			if should_be_lootable(body):
 				if "AKSprite" in str(body):
-					print("This is an AKSprite")
-					body.loot_ak()
-					$Sprite2D.hide()
-					for child in $GunAndWep.get_children():
-						child.hide()
-					$GunAndWep/AK47_Sprite.show()
-					equipment_data["combat"] = "autoGun"
+					loot_weapon(body, "AKSprite", "loot_ak", "AK47_Sprite", "autoGun", "ak")
+					
 				if "m9Sprite" in str(body):
-					print("this is m9 pistol")
-					body.loot_m9()
-					$Sprite2D.hide()
-					for child in $GunAndWep.get_children():
-						child.hide()
-					$GunAndWep/m9_Sprite.show()
-					equipment_data["combat"] = "manualGun"
+					loot_weapon(body, "m9Sprite", "loot_m9", "m9_Sprite", "manualGun", "m9")
 		print(equipment_data)
 		
 	if(Input.is_action_pressed("fist")):
 		$Sprite2D.show()
 		for child in $GunAndWep.get_children():
 			child.hide()
-		equipment_data["combat"] = "fist"
+		equipment_data["display"] = "fist"
 		print(equipment_data)
+		
+	if (Input.is_action_pressed("2")): #show gun in inventory
+		print("tryna find gun")
+		if equipment_data["inventory"]["gun"][0] != null:
+			equip_wep(equipment_data["inventory"]["gun"][0], "autoGun", "ak")
+
+func equip_wep(weapon_sprite: String, gunAutoOrMan: String, inventory_name: String):
+	$Sprite2D.hide()
+	for child in $GunAndWep.get_children():
+		child.hide()
+	$GunAndWep.get_node(weapon_sprite).show()
+	equipment_data["display"] = "gun"
+	equipment_data["inventory"]["gun"][1] = gunAutoOrMan
+	equipment_data["inventory"]["gun"][0] = weapon_sprite
+	
+
+func loot_weapon(body, weapon_type: String, loot_method: String, weapon_sprite: String, gunAutoOrMan: String, inventory_name: String) -> void:
+	print("This is a", weapon_type)
+	body.call(loot_method)
+	$Sprite2D.hide()
+
+	# Hide all children in GunAndWep
+	for child in $GunAndWep.get_children():
+		child.hide()
+
+	# Show the specific weapon sprite
+	$GunAndWep.get_node(weapon_sprite).show()
+
+	# Update equipment_data
+	equipment_data["display"] = "gun"
+	equipment_data["inventory"]["gun"][1] = gunAutoOrMan
+	equipment_data["inventory"]["gun"][0] = weapon_sprite
+
 
 var should_be_lootable_group = ['pickable_loot']
 func should_be_lootable(body: Node2D) -> bool:
 	for group in should_be_lootable_group:
 		if not body.is_in_group(group):
 			return false
-	#if not body.has_method('take_damage'):
-		#return false
 	return true
 	
 
@@ -130,8 +148,7 @@ func _on_punch_timer_timeout():
 var attack = 1
 func deal_damage():
 	var intersecting_bodies: Array = hurtbox_area.get_overlapping_bodies()
-	print(intersecting_bodies)
-	if equipment_data["combat"] == "fist":
+	if equipment_data["display"] == "fist":
 		for body in intersecting_bodies:
 			if should_deal_damage(body):
 				body.take_damage(attack)
