@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal drop_item(item_scene: Resource, position: Vector2)
+	
+
 @onready var hurtbox_area = $'Sprite2D/PunchArea'
 @onready var akCooldownTimer := $'AK47Timer'
 @onready var characterHitbox_area = $'PlayerArea'
@@ -81,7 +84,11 @@ func _input(event):
 		for body in intersecting_bodies:
 			if should_be_lootable(body):
 				if "AKSprite" in str(body):
-					loot_weapon(body, "AKSprite", "loot_ak", "AK47_Sprite", "autoGun", "ak")
+					if equipment_data["inventory"]["gun"][1] != null:
+						var gun = load("res://m9_sprite.tscn")
+						print("before emitting signal")
+						drop_item.emit(gun, global_position)
+						loot_weapon(body, "AKSprite", "loot_ak", "AK47_Sprite", "autoGun", "ak")
 					
 				if "m9Sprite" in str(body):
 					loot_weapon(body, "m9Sprite", "loot_m9", "m9_Sprite", "manualGun", "m9")
@@ -95,7 +102,6 @@ func _input(event):
 		print(equipment_data)
 		
 	if (Input.is_action_pressed("2")): #show gun in inventory
-		print("tryna find gun")
 		if equipment_data["inventory"]["gun"][0] != null:
 			print("theres a gun")
 			equip_wep(equipment_data["inventory"]["gun"][0], equipment_data["inventory"]["gun"][1])

@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cc78jyvscb1dq"]
+[gd_scene load_steps=11 format=3 uid="uid://cc78jyvscb1dq"]
 
 [ext_resource type="Texture2D" uid="uid://d2coii5ya1hbo" path="res://tiles/images.jpeg" id="1_eo66b"]
+[ext_resource type="Script" path="res://map.gd" id="1_yje0c"]
 [ext_resource type="PackedScene" uid="uid://cvgwvu7uoyvqa" path="res://player.tscn" id="2_kie3h"]
 [ext_resource type="PackedScene" uid="uid://cclqlrc4hddrd" path="res://rock.tscn" id="3_rq25j"]
 [ext_resource type="PackedScene" uid="uid://r4u05madp0v4" path="res://ak_sprite.tscn" id="4_rsmn0"]
@@ -17,6 +18,7 @@ size = Vector2(80, 1594.75)
 size = Vector2(96, 1611.25)
 
 [node name="Map" type="Node"]
+script = ExtResource("1_yje0c")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -683.0
@@ -73,3 +75,5 @@ position = Vector2(588, 358)
 
 [node name="m9Sprite" parent="." instance=ExtResource("6_g0qox")]
 position = Vector2(865, 487)
+
+[connection signal="drop_item" from="Player" to="." method="handle_dropped_item"]
